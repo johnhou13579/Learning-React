@@ -4,21 +4,13 @@ import './index.css';
 
 class Square extends React.Component {
 
-	constructor(props){ 
-		super(props); 
-		//React components can have state by setting this.state in constructors.
-		this.state = { 
-			value: null,
-		};
-	}
-
   render() {
     return (
       <button 
       		className="square" 
       		//rerender Square when <button> is clicked.
-      		onClick={()=> this.setState({value:'X'})}> 
-   		     		{this.state.value}
+      		onClick={()=> this.props.onClick()}> 
+   		     	{this.props.value}
       </button>
     );
   }
@@ -26,8 +18,27 @@ class Square extends React.Component {
 
 
 class Board extends React.Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			squares: Array(9).fill(null),
+		};
+	}
+
+	handleClick(i){
+		//Creates a copy of the squares array to modify instead of modifying the original array
+		const squares = this.state.squares.slice();
+		squares[i] = 'X';
+		this.setState({squares: squares});
+	}
+
   renderSquare(i) {
-    return <Square value={i} />;
+    return (
+    	<Square 
+    	value={this.state.squares[i]}
+    	onClick={() => this.handleClick(i)}
+    	/>
+    );
   }
 
   render() {
