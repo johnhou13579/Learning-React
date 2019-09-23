@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class Square extends React.Component {
+/*class Square extends React.Component {
 
   render() {
     return (
@@ -14,6 +14,15 @@ class Square extends React.Component {
       </button>
     );
   }
+}*/
+
+//Changing Square class to a function component. Only contain a render method and don't have state. 
+function Square(props){
+	return(
+		<button className = "square" onClick = {props.onClick}>
+			{props.value}
+		</button>
+		);
 }
 
 
